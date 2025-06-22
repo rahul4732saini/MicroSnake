@@ -7,6 +7,8 @@ ORG     0x7C00
 SNAKE_START     equ 0x74
 SNAKE_MAX_LEN   equ 100
 
+BLOCK_SIZE      equ 20
+
 setup:
     MOV     ax, 0
     MOV     ds, ax
