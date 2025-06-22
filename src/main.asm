@@ -33,5 +33,11 @@ setup:
 ; Initial length of the snake.
 len     DB  1
 
+; Stores the position of all the snake blocks. Initially,
+; only the 1st byte holds the valid position of the head.
+snake:
+    DB  SNAKE_START
+    DB  SNAKE_MAX_LEN - 1   dup(0)
+
 DB  510 - ($ - $$)  dup(0)
 DW  0xAA55
