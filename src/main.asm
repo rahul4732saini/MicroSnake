@@ -1,6 +1,8 @@
 BITS    16
 ORG     0x7C00
 
+SNAKE_START equ 0x74
+
 setup:
     MOV     ax, 0
     MOV     ds, ax
