@@ -19,5 +19,12 @@ setup:
     MOV     bp, ax
     MOV     sp, ax
 
+    ; Switches to 320x200 VGA mode to effectively
+    ; draw the game components on the screen.
+    MOV     ax, 0x0013
+    INT     0x10
+
+len     DB  1
+
 DB  510 - ($ - $$)  dup(0)
 DW  0xAA55
