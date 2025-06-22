@@ -1,6 +1,8 @@
 BITS    16
 ORG     0x7C00
 
+; The snake is initially placed in the center of
+; the 16x10 board at x=7 and y=4 (0-indexed).
 SNAKE_START equ 0x74
 
 setup:
@@ -26,6 +28,7 @@ setup:
     MOV     ax, 0x0013
     INT     0x10
 
+; Initial length of the snake.
 len     DB  1
 
 DB  510 - ($ - $$)  dup(0)
