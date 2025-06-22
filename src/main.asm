@@ -3,7 +3,9 @@ ORG     0x7C00
 
 ; The snake is initially placed in the center of
 ; the 16x10 board at x=7 and y=4 (0-indexed).
-SNAKE_START equ 0x74
+
+SNAKE_START     equ 0x74
+SNAKE_MAX_LEN   equ 100
 
 setup:
     MOV     ax, 0
