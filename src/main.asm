@@ -76,8 +76,8 @@ _draw_block_loop_inner:
 
     RET
 
-; Initial length of the snake.
-len     DB  1
+len     DB  1   ; Initial length of the snake.
+food    DB  0   ; Location of the food block. Initially, a garbage value.
 
 ; Stores the position of all the snake blocks. Initially,
 ; only the 1st byte holds the valid position of the head.
