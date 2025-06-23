@@ -32,6 +32,48 @@ setup:
     MOV     ax, 0x0013
     INT     0x10
 
+draw_block:
+    ; Stores the block position in DL for calculation.
+    MOV     dl, bl
+    AND     dx, 0xF ; Extracts the lower nibble (vertical position).
+
+    ; Skips the rows reserved for blocks prior to
+    ; the current vertical position.
+    MOV     ax, 6400
+    MUL     dx
+    MOV     di, ax
+
+    ; Extracts the upper nibble (horizontal position), computes
+    ; the offset, and adds it to DI to get the final position.
+    SHR     bl, 4
+    MOV     ax, 20
+    MUL     bl
+    ADD     di, ax
+
+    ; Saves the color in AL to directly support loading
+    ; at ES:DI, since CX will be used for loop control.
+    MOV     al, cl
+    MOV     cx, 20
+
+_draw_block_loop_outer:
+    ; Saves the outer loop iteration number as CX
+    ; will be used for the inner loop.
+    PUSH    cx
+    MOV     cx, 20
+
+_draw_block_loop_inner:
+    STOSB
+    LOOP    _draw_block_loop_inner
+
+    ; Adds an offset to get back at the starting
+    ; position in the next row.
+    ADD     di, 300
+    POP     cx  ; Restores the outer loop iteration number.
+
+    LOOP    _draw_block_loop_outer
+
+    RET
+
 ; Initial length of the snake.
 len     DB  1
 
