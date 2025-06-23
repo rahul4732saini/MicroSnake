@@ -7,8 +7,9 @@ ORG     0x7C00
 SNAKE_START     equ 0x74
 SNAKE_MAX_LEN   equ 100
 
+; Display component sizes are stored in pixels.
 BLOCK_SIZE      equ 20
-ROW_SIZE        equ 6400
+ROW_SIZE        equ 320 * BLOCK_SIZE    ; 320 (screen width) x 20 (Block Size)
 
 setup:
     MOV     ax, 0
