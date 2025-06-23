@@ -11,6 +11,11 @@ SNAKE_MAX_LEN   equ 100
 BLOCK_SIZE      equ 20
 ROW_SIZE        equ 320 * BLOCK_SIZE    ; 320 (screen width) x 20 (Block Size)
 
+; VGA color indices used in the game
+COLOR_BLACK     equ 0
+COLOR_GREEN     equ 2
+COLOR_RED       equ 4
+
 setup:
     MOV     ax, 0
     MOV     ds, ax
