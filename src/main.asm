@@ -122,8 +122,10 @@ _place_food_check_loop:
     INC     di
     LOOP    _place_food_check_loop
 
+    MOV     [food], bl ; Stores the food position for future usage.
+
     ; The food is finally drawn if the extracted position is empty.
-    MOV     cl, 0x4
+    MOV     cl, COLOR_RED
     CALL    draw_block  ; BL already has the position of the block.
 
     RET
