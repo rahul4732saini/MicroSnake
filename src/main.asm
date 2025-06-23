@@ -76,6 +76,53 @@ _draw_block_loop_inner:
 
     RET
 
+place_food:
+    ; Extracts and uses the System Time as the pseudo random number.
+    MOV     ah, 0
+    INT     0x1A
+    
+    MOV     ax, dx  ; Stores in AX for division
+    MOV     bx, dx  ; Temporarily saves a copy in BX for future usage.
+
+    MOV     cx, 16
+    XOR     dx, dx
+    DIV     cx      ; Extracts the column index
+
+    MOV     ax, bx  ; Stores the saved number in AX for division.
+
+    ; BX is used for storing the final result. Being divided
+    ; by 16, the result is ensured to fit in the lower nibble.
+    MOV     bx, dx
+    SHL     bx, 4   ; Moves the column index to the upper nibble.
+
+    MOV     cx, 10
+    XOR     dx, dx
+    DIV     cx      ; Extracts the row index
+
+    ; Moves the row index in the lower nibble of BX
+    ; to get the final position.
+    OR      bx, dx
+
+    MOV     cx, [len]
+    MOV     di, 0
+
+_place_food_check_loop:
+
+    ; If the food position conflicts with any snake
+    ; block position, it is re-calculated.
+    CMP     bl, snake[di]
+    JE      place_food
+
+    ; Increments and loops to compare with the next snake block.
+    INC     di
+    LOOP    _place_food_check_loop
+
+    ; The food is finally drawn if the extracted position is empty.
+    MOV     cl, 0x4
+    CALL    draw_block  ; BL already has the position of the block.
+
+    RET
+
 len     DB  1   ; Initial length of the snake.
 food    DB  0   ; Location of the food block. Initially, a garbage value.
 
