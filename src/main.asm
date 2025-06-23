@@ -41,14 +41,14 @@ draw_block:
 
     ; Skips the rows reserved for blocks prior to
     ; the current vertical position.
-    MOV     ax, 6400
+    MOV     ax, ROW_SIZE
     MUL     dx
     MOV     di, ax
 
     ; Extracts the upper nibble (horizontal position), computes
     ; the offset, and adds it to DI to get the final position.
     SHR     bl, 4
-    MOV     ax, 20
+    MOV     ax, BLOCK_SIZE
     MUL     bl
     ADD     di, ax
 
