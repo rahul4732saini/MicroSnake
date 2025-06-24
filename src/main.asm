@@ -16,7 +16,12 @@ COLOR_BLACK     equ 0
 COLOR_GREEN     equ 2
 COLOR_RED       equ 4
 
-; Stores the ASCII code associated with the keyboard keys.
+; Snake movement directions
+DIR_NONE        equ 0
+DIR_RIGHT_DOWN  equ 1
+DIR_LEFT_UP     equ -1
+
+; ASCII code associated with the keyboard keys.
 KEY_W   equ 'W'
 KEY_S   equ 'S'
 KEY_A   equ 'A'
