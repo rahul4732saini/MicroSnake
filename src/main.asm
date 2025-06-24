@@ -119,9 +119,11 @@ place_food:
     ; to get the final position.
     OR      bx, dx
 
+    ; Moves the length into CX to iterate through the
+    ; snake and check for conflicting positions.
     XOR     ch, ch
     MOV     cl, [len]
-    MOV     di, 0
+    MOV     di, 0   ; Stores the current index to check
 
 _place_food_check_loop:
 
