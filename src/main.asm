@@ -119,7 +119,8 @@ place_food:
     ; to get the final position.
     OR      bx, dx
 
-    MOV     cx, [len]
+    XOR     ch, ch
+    MOV     cl, [len]
     MOV     di, 0
 
 _place_food_check_loop:
