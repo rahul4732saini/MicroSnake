@@ -16,6 +16,12 @@ COLOR_BLACK     equ 0
 COLOR_GREEN     equ 2
 COLOR_RED       equ 4
 
+; Stores the ASCII code associated with the keyboard keys.
+KEY_W   equ 'W'
+KEY_S   equ 'S'
+KEY_A   equ 'A'
+KEY_D   equ 'D'
+
 setup:
     MOV     ax, 0
     MOV     ds, ax
