@@ -16,7 +16,7 @@ COLOR_BLACK     equ 0
 COLOR_GREEN     equ 2
 COLOR_RED       equ 4
 
-; Snake movement directions
+; Displacements to move the snake in the associated direction.
 DIR_NONE        equ 0
 DIR_RIGHT_DOWN  equ 1
 DIR_LEFT_UP     equ -1
@@ -143,6 +143,11 @@ _place_food_check_loop:
 
 len     DB  1   ; Initial length of the snake.
 food    DB  0   ; Location of the food block. Initially, a garbage value.
+
+; Stores the direction of the snake. Initally, the snake
+; moves horizontally from left to right.
+dir_x   DB  DIR_LEFT_UP
+dir_y   DB  DIR_NONE
 
 ; Stores the position of all the snake blocks. Initially,
 ; only the 1st byte holds the valid position of the head.
