@@ -166,7 +166,8 @@ _update_snake_head:
     AND     al, 0xF ; Clears the upper nibble comprising the older X position.
     ADD     al, [dir_y]
 
-    MOV     bl, al  ; Moves the position into BL to update the X coordindate.
+    ; Wraps the Y coordindate into the valid (0-9) range.
+    CALL    wrap_y_pos
 
     ; Shifts the X coordinate in the lower nibble, updates it and
     ; re-positions it in the upper nibble.
