@@ -179,6 +179,9 @@ _update_snake_head:
 
     MOV     [snake], bl ; Updates the snake head position in memory.
 
+    ; Checks if the head has collided with any other snake block.
+    CALL    check_collision
+
     ; Draws the snake head at the updated position.
     MOV     cl, COLOR_GREEN
     CALL    draw_block  ; BL already has the position of the block.
