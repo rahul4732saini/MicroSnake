@@ -285,6 +285,31 @@ _place_food_check_loop:
 
     RET
 
+check_collision:
+    ; Moves len - 1 as the collision is to be checked for
+    ; blocks other than the head itself.
+    MOV     cx, [len]
+    DEC     cl
+
+    ; Skips the process if the length is 1 as in such, the
+    ; snake cannot collide with itself.
+    OR      cl, cl
+    JE      _check_collision_end
+
+    MOV     di, 1   ; Stores the initial block index to check.
+    MOV     al, snake[0]
+
+_check_collision_loop:
+    ; Compares the block with the head and restarts the game if equal.
+    CMP     al, snake[di]
+    JE      game_over
+
+    INC     di  ; Increments to check the next index.
+    LOOP    _check_collision_loop
+
+_check_collision_end:
+    RET
+
 game_over:
     ; Jumps to the CPU reset vector as a shortcut to restart.
     JMP     0xFFFF:0
