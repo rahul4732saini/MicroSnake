@@ -121,8 +121,7 @@ place_food:
 
     ; Moves the length into CX to iterate through the
     ; snake and check for conflicting positions.
-    XOR     ch, ch
-    MOV     cl, [len]
+    MOV     cx, [len]
     MOV     di, 0   ; Stores the current index to check
 
 _place_food_check_loop:
@@ -144,7 +143,7 @@ _place_food_check_loop:
 
     RET
 
-len     DB  1   ; Initial length of the snake.
+len     DW  1   ; Initial length of the snake.
 food    DB  0   ; Location of the food block. Initially, a garbage value.
 
 ; Stores the direction of the snake. Initally, the snake
