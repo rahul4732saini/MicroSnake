@@ -287,6 +287,23 @@ _place_food_check_loop:
 
     RET
 
+wrap_y_pos:
+    CMP     al, 0xA
+    JE      _wrap_y_down    ; Wraps downward to 0 if overflows
+
+    CMP     al, 0xFF
+    JE      _wrap_y_up      ; Wraps upward to 9 if underflows
+
+    RET
+
+_wrap_y_down:
+    MOV     al, 0
+    RET
+
+_wrap_y_up:
+    MOV     al, 9
+    RET
+
 check_collision:
     ; Moves len - 1 as the collision is to be checked for
     ; blocks other than the head itself.
