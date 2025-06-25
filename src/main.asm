@@ -161,9 +161,9 @@ _update_snake_loop:
 
 _update_snake_head:
     MOV     al, [snake]
-
-    ; Directly adds the Y offset as the lower nibble comprises the Y
-    ; coordinate (0 - 9) and will not overflow to the upper nibble.
+    MOV     bl, al  ; Saves the position into BL to update the X position.
+    
+    AND     al, 0xF ; Clears the upper nibble comprising the older X position.
     ADD     al, [dir_y]
 
     MOV     bl, al  ; Moves the position into BL to update the X coordindate.
@@ -174,7 +174,6 @@ _update_snake_head:
     ADD     bl, [dir_x]
     SHL     bl, 4
 
-    AND     al, 0xF ; Clears the upper nibble comprising older position.
     OR      bl, al  ; Stores the final result in BL.
 
     MOV     [snake], bl ; Updates the snake head position in memory.
