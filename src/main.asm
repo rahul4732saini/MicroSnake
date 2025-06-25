@@ -65,6 +65,133 @@ setup:
     MOV     ax, 0x0013
     INT     0x10
 
+game_exec:
+    ; Places the food and snake head block at their initial positions.
+    MOV     bl, SNAKE_START
+    MOV     cl, COLOR_GREEN
+
+    CALL    draw_block
+    CALL    place_food
+
+_game_exec_loop:
+
+    ; Compares the snake head with the food block and calls
+    ; the associated handler routine if the above holds true.
+    MOV     al, [snake]
+    CMP     al, [food]
+    JE      _capture_food
+
+    ; Extracts the last snake block index and moves it into DI.
+    MOV     di, [len]
+    DEC     di
+
+    ; Removes the last snake block to indicate movement.
+    MOV     bl, snake[di]
+    MOV     cl, COLOR_BLACK
+    CALL    draw_block
+
+    JMP     _fetch_keypress
+
+_capture_food:
+    ; Places another food block and increases the snake length.
+    CALL    place_food
+    INC     word [len]
+
+_fetch_keypress:
+    ; Checks for available keys in the BIOS keyboard buffer.
+    MOV     ah, 1
+    INT     0x16
+
+    JZ      _update_snake   ; Skips if no keys are currently available
+
+    ; Extracts the most recent key from the buffer.
+    MOV     ah, 0
+    INT     0x16
+
+    ; Compares the extracted key with the movement keys and sets the
+    ; direction using the corresponding macro if a match is found.
+    cmp_key KEY_W, _set_dir_up
+    cmp_key KEY_S, _set_dir_down
+    cmp_key KEY_A, _set_dir_left
+    cmp_key KEY_D, _set_dir_right
+
+    JMP     _update_snake
+
+_set_dir_up:
+    set_dir DIR_LEFT_UP, DIR_NONE
+
+_set_dir_down:
+    set_dir DIR_RIGHT_DOWN, DIR_NONE
+
+_set_dir_left:
+    set_dir DIR_NONE, DIR_LEFT_UP
+
+_set_dir_right:
+    set_dir DIR_NONE, DIR_RIGHT_DOWN
+
+_update_snake:
+    ; Moves len - 1 into CX as the loop only updates the snake blocks
+    ; positioned after the head, which will be calculated separately.
+    MOV     cx, [len]
+    DEC     cl
+
+    ; Skips the process if the length is 1 indicating that only the
+    ; new head has to be calculated.
+    OR      cl, cl
+    JZ      _update_snake_head
+
+    ; The loop proceeds in reverse order moving the value from lower
+    ; index (source) to the higher index (target = source + 1).
+
+    MOV     di, snake
+    ADD     di, cx  ; Pointer to the target index. Initally, the last block.
+
+    MOV     si, di
+    DEC     si  ; Pointer to the source index.
+
+_update_snake_loop:
+    MOV     al, [si]
+    MOV     [di], al    ; Moves the value from source to target.
+
+    ; Decrements the pointers to move the snake blocks with lower indices.
+    DEC     di
+    DEC     si
+
+    LOOP    _update_snake_loop
+
+_update_snake_head:
+    MOV     al, [snake]
+
+    ; Directly adds the Y offset as the lower nibble comprises the Y
+    ; coordinate (0 - 9) and will not overflow to the upper nibble.
+    ADD     al, [dir_y]
+
+    MOV     bl, al  ; Moves the position into BL to update the X coordindate.
+
+    ; Shifts the X coordinate in the lower nibble, updates it and
+    ; re-positions it in the upper nibble.
+    SHR     bl, 4
+    ADD     bl, [dir_x]
+    SHL     bl, 4
+
+    AND     al, 0xF ; Clears the upper nibble comprising older position.
+    OR      bl, al  ; Stores the final result in BL.
+
+    MOV     [snake], bl ; Updates the snake head position in memory.
+
+    ; Draws the snake head at the updated position.
+    MOV     cl, COLOR_GREEN
+    CALL    draw_block  ; BL already has the position of the block.
+
+_game_delay:
+    ; Creates an delay of approximately 196.6 ms to ease gameplay speed.
+    MOV     ah, 0x86
+    MOV     cx, 0x2
+    MOV     dx, 0xFFFF
+    INT     0x15
+
+    JMP     _game_exec_loop
+
 draw_block:
     ; Stores the block position in DL for calculation.
     MOV     dl, bl
