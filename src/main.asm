@@ -27,6 +27,13 @@ KEY_S   equ 's'
 KEY_A   equ 'a'
 KEY_D   equ 'd'
 
+; Compares the 1st argument with the ASCII code stored in AL and
+; jumps to the memory location in the 2nd argument if they are equal.
+%macro cmp_key 2
+    CMP     al, %1
+    JE      %2
+%endmacro
+
 setup:
     MOV     ax, 0
     MOV     ds, ax
