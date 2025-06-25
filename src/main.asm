@@ -285,6 +285,10 @@ _place_food_check_loop:
 
     RET
 
+game_over:
+    ; Jumps to the CPU reset vector as a shortcut to restart.
+    JMP     0xFFFF:0
+
 len     DW  1   ; Initial length of the snake.
 food    DB  0   ; Location of the food block. Initially, a garbage value.
 
