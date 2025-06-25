@@ -97,6 +97,11 @@ _capture_food:
     CALL    place_food
     INC     word [len]
 
+    ; Restarts the game if the snake reaches its max length
+    ; indicating a victory.
+    CMP     [len], word SNAKE_MAX_LEN
+    JE      game_over
+
 _fetch_keypress:
     ; Checks for available keys in the BIOS keyboard buffer.
     MOV     ah, 1
