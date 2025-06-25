@@ -34,6 +34,14 @@ KEY_D   equ 'd'
     JE      %2
 %endmacro
 
+; Sets the snake movement direction based on the specified
+; arguments and jumps to the snake updation routine.
+%macro set_dir 2
+    MOV     [dir_y], byte %1
+    MOV     [dir_x], byte %2
+    JMP     _update_snake
+%endmacro
+
 setup:
     MOV     ax, 0
     MOV     ds, ax
