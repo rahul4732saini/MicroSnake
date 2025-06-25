@@ -22,10 +22,10 @@ DIR_RIGHT_DOWN  equ 1
 DIR_LEFT_UP     equ -1
 
 ; ASCII code associated with the keyboard keys.
-KEY_W   equ 'W'
-KEY_S   equ 'S'
-KEY_A   equ 'A'
-KEY_D   equ 'D'
+KEY_W   equ 'w'
+KEY_S   equ 's'
+KEY_A   equ 'a'
+KEY_D   equ 'd'
 
 setup:
     MOV     ax, 0
