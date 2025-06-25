@@ -149,7 +149,7 @@ food    DB  0   ; Location of the food block. Initially, a garbage value.
 
 ; Stores the direction of the snake. Initally, the snake
 ; moves horizontally from left to right.
-dir_x   DB  DIR_LEFT_UP
+dir_x   DB  DIR_RIGHT_DOWN
 dir_y   DB  DIR_NONE
 
 ; Stores the position of all the snake blocks. Initially,
