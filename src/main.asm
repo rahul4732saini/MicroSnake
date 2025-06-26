@@ -1,3 +1,9 @@
+; MicroSnake
+; Author: Rahul Saini (github.com/rahul4732saini)
+;
+; A minimal, bootable implemenation of the classic snake game in x86 Assembly,
+; designed to run directly from the 512-byte MBR of legacy BIOS systems. 
+
 BITS    16
 ORG     0x7C00
 
