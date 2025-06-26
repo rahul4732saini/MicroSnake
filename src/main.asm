@@ -194,7 +194,7 @@ _update_snake_head:
 _game_delay:
     ; Creates an delay of approximately 196.6 ms to ease gameplay speed.
     MOV     ah, 0x86
-    MOV     cx, 0x2
+    MOV     cx, 0x1
     MOV     dx, 0xFFFF
     INT     0x15
 
