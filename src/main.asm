@@ -48,6 +48,8 @@ KEY_D   equ 'd'
     JMP     _update_snake
 %endmacro
 
+start:
+
 setup:
     MOV     ax, 0
     MOV     ds, ax
@@ -200,7 +202,7 @@ _update_snake_head:
 _game_delay:
     ; Creates an delay of approximately 196.6 ms to ease gameplay speed.
     MOV     ah, 0x86
-    MOV     cx, 0x2
+    MOV     cx, 0x1
     MOV     dx, 0xFFFF
     INT     0x15
 
@@ -342,15 +344,19 @@ _check_collision_end:
     RET
 
 game_over:
-    ; Jumps to the CPU reset vector as a shortcut to restart.
-    JMP     0xFFFF:0
+    ; Resets the labels to their initial values to restart the game.
+    MOV     [len], word 1
+    MOV     [snake], byte SNAKE_START
+    MOV     [dir_x], word 0 ; dir_x = 0, dir_y = 0
+
+    JMP     start
 
 len     DW  1   ; Initial length of the snake.
 food    DB  0   ; Location of the food block. Initially, a garbage value.
 
 ; Stores the direction of the snake. Initally, the snake
 ; moves horizontally from left to right.
-dir_x   DB  DIR_RIGHT_DOWN
+dir_x   DB  DIR_NONE
 dir_y   DB  DIR_NONE
 
 ; Stores the position of all the snake blocks. Initially,
