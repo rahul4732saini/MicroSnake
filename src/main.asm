@@ -172,10 +172,10 @@ _update_snake_loop:
 
 _update_snake_head:
     MOV     al, [snake]
-    MOV     bl, al  ; Saves the position into BL to update the X position.
+    MOV     bl, al  ; Saves the position into BL to update the X coordinate.
     
-    AND     al, 0xF ; Clears the upper nibble comprising the older X position.
-    ADD     al, [dir_y]
+    AND     al, 0xF ; Clears the upper nibble comprising the older X coordinate.
+    ADD     al, [dir_y] ; Updates the Y coordinate.
 
     ; Wraps the Y coordindate into the valid (0-9) range.
     CALL    wrap_y_pos
@@ -215,14 +215,14 @@ draw_block:
     ; the current vertical position.
     MOV     ax, ROW_SIZE
     MUL     dx
-    MOV     di, ax
+    MOV     di, ax  ; Saves the result into DI
 
-    ; Extracts the upper nibble (horizontal position), computes
-    ; the offset, and adds it to DI to get the final position.
+    ; Extracts the upper nibble (X coordinate), computes the
+    ; offset, and adds it to DI to get the final position.
     SHR     bl, 4
     MOV     ax, BLOCK_SIZE
     MUL     bl
-    ADD     di, ax
+    ADD     di, ax  ; Final result is stored in DI
 
     ; Saves the color in AL to directly support loading
     ; at ES:DI, since CX will be used for loop control.
