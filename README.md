@@ -1,14 +1,29 @@
 <h1 align=center>MicroSnake</h1>
 
 [![projectStatus](https://img.shields.io/badge/status-stable-green?maxAge=60)](https://www.github.com/rahul4732saini/MicroSnake)
-[![License](https://img.shields.io/badge/License-MIT-green?maxAge=60)](https://github.com/rahul4732saini/MicroSnake/blob/main/LICENSE)
+[![License](https://img.shields.io/badge/License-MIT-green)](https://github.com/rahul4732saini/MicroSnake/blob/main/LICENSE)
 
-[![StarProject](https://img.shields.io/github/stars/rahul4732saini/MicroSnake.svg?style=social&label=Star&maxAge=60")](https://www.github.com/rahul4732saini/MicroSnake)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?style=social&logo=linkedin&maxAge=60)](https://www.linkedin.com/in/rahul4732saini/)
+[![StarProject](https://img.shields.io/github/stars/rahul4732saini/MicroSnake.svg?style=social&label=Star")](https://www.github.com/rahul4732saini/MicroSnake)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?style=social&logo=linkedin)](https://www.linkedin.com/in/rahul4732saini/)
 
 <h2 align=center>Description</h2>
 
-**MicroSnake** is a minimal x86 Assembly based implementation of the classic snake game designed to fit in the 512-byte MBR (Master Boot Record) of the legacy BIOS systems. It is a standalone binary executable file that can be booted with the help of an external device such as a PenDrive or CD/DVD drive.
+**MicroSnake** is a minimal x86 Assembly based implementation of the classic snake game designed to fit in the 512-byte MBR (Master Boot Record) of legacy BIOS systems. It is a standalone binary executable file that can be booted with the help of an external device such as a PenDrive or CD/DVD.
+
+### In-Game Details
+
+- The game board size is 16x10.
+- The snake is initially positioned in the center of the board.
+- The snake wraps around the board corners.
+- The snake can only grow upto a maximum length of 100, due to file size limitations.
+
+### Key Bindings
+
+- `W` - Move up
+- `S` - Move down
+- `A` - Move left
+- `D` - Move right
+- `Ctrl + C` - Restart game
 
 <h2 align=center>Getting Started</h2>
 
@@ -62,20 +77,20 @@ Broadly, you have two different options to run the game on your local system, wh
     Example using **QEMU**:
 
     ```bash
-    qemu-system-x86_64 -drive format=raw,file=bin/snake.bin
+    qemu-system-i386 -drive format=raw,file=bin/snake.bin
     ```
 
 2. **Boot it using an external device such as a PenDrive or CD/DVD**:
 
     Example using a PenDrive:
 
-    In order to boot the game, you would require to make the PenDrive bootable by copying the executable to its 1st sector (512-byte) or MBR. This step can be performed by using a tool such as `dd`, an example of which is shown as follows:
+    In order to boot the game, you would require to make the PenDrive bootable by copying the executable to its 1st sector (512-byte). This step can be performed by using a tool such as `dd`, an example of which is shown as follows:
 
     ```bash
     dd if=bin/snake.bin of=<destination-device> bs=512 count=1 conv=notrunc
     ```
 
-    Replace the `destination-device` with the path to the device file based on the Operating System.
+    Replace the `destination-device` with the path to the device file based on your Operating System.
 
     Once written to the MBR, the device can be used to boot the game.
 
