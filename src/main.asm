@@ -124,12 +124,13 @@ _fetch_keypress:
     MOV     ah, 0
     INT     0x16
 
-    ; Compares the extracted key with the movement keys and sets the
+    ; Compares the extracted key with the functional keys and sets the
     ; direction using the corresponding macro if a match is found.
     cmp_key KEY_W, _set_dir_up
     cmp_key KEY_S, _set_dir_down
     cmp_key KEY_A, _set_dir_left
     cmp_key KEY_D, _set_dir_right
+    cmp_key CTRL_C, game_over
 
     JMP     _update_snake
 
