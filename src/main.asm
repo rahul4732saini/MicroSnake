@@ -17,10 +17,10 @@ SNAKE_MAX_LEN   equ 100
 BLOCK_SIZE      equ 20
 ROW_SIZE        equ 320 * BLOCK_SIZE    ; 320 (screen width) x 20 (Block Size)
 
-; VGA color indices used in the game
-COLOR_BLACK     equ 0
-COLOR_GREEN     equ 2
-COLOR_RED       equ 4
+; VGA color indices for different game components.
+COLOR_VOID      equ 0
+COLOR_SNAKE     equ 2
+COLOR_FOOD      equ 4
 
 ; Displacements to move the snake in the associated direction.
 DIR_NONE        equ 0
@@ -79,7 +79,7 @@ setup:
 game_exec:
     ; Places the food and snake head block at their initial positions.
     MOV     bl, SNAKE_START
-    MOV     cl, COLOR_GREEN
+    MOV     cl, COLOR_SNAKE
 
     CALL    draw_block
     CALL    place_food
@@ -98,7 +98,7 @@ _game_exec_loop:
 
     ; Removes the last snake block to indicate movement.
     MOV     bl, snake[di]
-    MOV     cl, COLOR_BLACK
+    MOV     cl, COLOR_VOID
     CALL    draw_block
 
     JMP     _fetch_keypress
@@ -200,7 +200,7 @@ _update_snake_head:
     CALL    check_collision
 
     ; Draws the snake head at the updated position.
-    MOV     cl, COLOR_GREEN
+    MOV     cl, COLOR_SNAKE
     CALL    draw_block  ; BL already has the position of the block.
 
 _game_delay:
@@ -300,7 +300,7 @@ _place_food_check_loop:
     MOV     [food], bl ; Stores the food position for future usage.
 
     ; The food is finally drawn if the extracted position is empty.
-    MOV     cl, COLOR_RED
+    MOV     cl, COLOR_FOOD
     CALL    draw_block  ; BL already has the position of the block.
 
     RET
