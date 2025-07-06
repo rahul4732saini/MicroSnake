@@ -31,7 +31,7 @@ To enjoy this game, follow the steps below to setup and run the game on your loc
 
 ### Prerequisites
 
-- A legacy system based on the **x86 architecture** that supports BIOS and the MBR partitioning scheme, or an emulator such as QEMU or Bochs.
+- A legacy system based on the **x86 architecture** with an **Intel 80386** CPU or newer that supports BIOS and the MBR partitioning scheme, or an emulator such as QEMU or Bochs.
 
 - Optionally, **NASM** (Netwide Assembler) to assemble the game. Only if you are manually building it from source code.
 
