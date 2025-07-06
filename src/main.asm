@@ -197,7 +197,6 @@ _update_snake_head:
     SHL     bl, 4
 
     OR      bl, al  ; Stores the final result in BL.
-
     MOV     [snake], bl ; Updates the snake head position in memory.
 
     ; Checks if the head has collided with any other snake block.
@@ -256,7 +255,8 @@ _draw_block_loop:
     RET
 
 place_food:
-    ; Extracts and uses the System Time as the pseudo random number.
+    ; Extracts the System Time into CX:DX and uses
+    ; it as a pseudo random number.
     MOV     ah, 0
     INT     0x1A
     
