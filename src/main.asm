@@ -235,23 +235,20 @@ draw_block:
     MOV     al, cl
     MOV     cx, 20
 
-_draw_block_loop_outer:
-    ; Saves the outer loop iteration number as CX
-    ; will be used for the inner loop.
+_draw_block_loop:
+    ; Saves the loop iteration number as CX will be
+    ; used for tracking the string storage loop.
     PUSH    cx
     MOV     cx, 20
 
-_draw_block_loop_inner:
-    STOSB
-    LOOP    _draw_block_loop_inner
+    REP     STOSB
 
     ; Adds an offset to get back at the starting
     ; position in the next row.
     ADD     di, 300
-    POP     cx  ; Restores the outer loop iteration number.
+    POP     cx  ; Restores the loop iteration number.
 
-    LOOP    _draw_block_loop_outer
-
+    LOOP    _draw_block_loop
     RET
 
 place_food:
