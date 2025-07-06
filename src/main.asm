@@ -54,6 +54,8 @@ CTRL_C  equ 3
 start:
 
 setup:
+    CLI
+
     MOV     ax, 0
     MOV     ds, ax
 
@@ -70,6 +72,8 @@ setup:
     MOV     ax, 0xFFFF
     MOV     bp, ax
     MOV     sp, ax
+
+    STI
 
     ; Switches to 320x200 VGA mode to effectively
     ; draw the game components on the screen.
