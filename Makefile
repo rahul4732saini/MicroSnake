@@ -10,8 +10,10 @@ SRC = src/main.asm
 
 build: $(BIN)
 
-$(BIN): $(SRC)
-	mkdir -p bin
+$(OUT_DIR):
+	mkdir bin
+
+$(BIN): $(SRC) | $(OUT_DIR)
 	$(ASM) $(ASM_FLAGS) -o $@ $^
 
 clean:
