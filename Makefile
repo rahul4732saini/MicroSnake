@@ -6,6 +6,8 @@ OUT_DIR = bin
 BIN = $(OUT_DIR)/snake.bin
 SRC = src/main.asm
 
+.PHONY = all clean
+
 build: $(BIN)
 
 $(BIN): $(SRC)
