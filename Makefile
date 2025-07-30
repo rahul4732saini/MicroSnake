@@ -15,4 +15,6 @@ $(BIN): $(SRC)
 	$(ASM) $(ASM_FLAGS) -o $@ $^
 
 clean:
-	rm -r bin
+	@if [ -e $(OUT_DIR) ]; then \
+		rm -r $(OUT_DIR); \
+	fi
