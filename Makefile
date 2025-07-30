@@ -8,7 +8,7 @@ SRC = src/main.asm
 
 .PHONY = all clean
 
-build: $(TARGET)
+all: $(TARGET)
 
 $(OUT_DIR):
 	mkdir bin
