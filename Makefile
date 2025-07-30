@@ -1,7 +1,9 @@
 ASM	= nasm
 ASM_FLAGS = -f bin
 
-BIN = bin/snake.bin
+OUT_DIR = bin
+
+BIN = $(OUT_DIR)/snake.bin
 SRC = src/main.asm
 
 build: $(BIN)
