@@ -6,6 +6,7 @@
 
 BITS    16
 ORG     0x7C00
+CPU     386
 
 ; The snake is initially placed in the center of
 ; the 16x10 board at x=7 and y=4 (0-indexed).
