@@ -1,7 +1,7 @@
 ; MicroSnake
 ; Author: Rahul Saini (github.com/rahul4732saini)
 ;
-; A minimal, bootable implemenation of the classic snake game in x86 Assembly,
+; A minimal, bootable implementation of the classic snake game in x86 Assembly,
 ; designed to run directly from the 512-byte MBR of legacy BIOS systems. 
 
 BITS    16
@@ -166,7 +166,7 @@ _update_snake:
     ; index (source) to the higher index (target = source + 1).
 
     MOV     di, snake
-    ADD     di, cx  ; Pointer to the target index. Initally, the last block.
+    ADD     di, cx  ; Pointer to the target index. Initially, the last block.
 
     MOV     si, di
     DEC     si  ; Pointer to the source index.
@@ -188,7 +188,7 @@ _update_snake_head:
     AND     al, 0xF ; Clears the upper nibble comprising the older X coordinate.
     ADD     al, [dir_y] ; Updates the Y coordinate.
 
-    ; Wraps the Y coordindate into the valid (0-9) range.
+    ; Wraps the Y coordinate into the valid (0-9) range.
     CALL    wrap_y_pos
 
     ; Shifts the X coordinate in the lower nibble, updates it and
@@ -360,7 +360,7 @@ game_over:
 len     DW  1   ; Initial length of the snake.
 food    DB  0   ; Location of the food block. Initially, a garbage value.
 
-; Stores the direction of the snake. Initally, the snake
+; Stores the direction of the snake. Initially, the snake
 ; moves horizontally from left to right.
 dir_x   DB  DIR_NONE
 dir_y   DB  DIR_NONE
