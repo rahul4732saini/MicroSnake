@@ -17,6 +17,4 @@ $(TARGET): $(SRC) | $(OUT_DIR)
 	$(ASM) $(ASM_FLAGS) -o $@ $^
 
 clean:
-	@if [ -e $(OUT_DIR) ]; then \
-		rm -r $(OUT_DIR); \
-	fi
+	rm -rf $(OUT_DIR)
